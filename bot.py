@@ -17,7 +17,6 @@ from utils import temp
 from Script import script
 from plugins import web_server, check_expired_premium, keep_alive
 from dreamxbotz.Bot import dreamxbotz
-from dreamxbotz.util.keepalive import ping_server
 from dreamxbotz.Bot.clients import initialize_clients
 from PIL import Image
 Image.MAX_IMAGE_PIXELS = 500_000_000
@@ -53,9 +52,7 @@ async def dreamxbotz_start():
             load = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(load)
             sys.modules["plugins." + plugin_name] = load
-            print("DreamxBotz Imported => " + plugin_name)
-    if ON_HEROKU:
-        asyncio.create_task(ping_server()) 
+            print("DreamxBotz Imported => " + plugin_name) 
     b_users, b_chats = await db.get_banned()
     temp.BANNED_USERS = b_users
     temp.BANNED_CHATS = b_chats
